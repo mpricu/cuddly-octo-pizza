@@ -2,7 +2,10 @@
   <div id="app">   
       <Header/> 
       <Home/>
-      <Menu/>
+      <div class="container">        
+      <Menu class="item"/>
+      <ShoppingBasket class="item"/>
+      </div>
   </div>
 </template>
 
@@ -10,11 +13,12 @@
 import Header from './components/Header'
 import Menu from './components/Menu'
 import Home from './components/Home'
+import ShoppingBasket from './components/ShoppingBasket'
 
 export default {
   name: 'App',
   components: {
-    Header, Home, Menu
+    Header, Home, Menu, ShoppingBasket
   }
 }
 </script>
