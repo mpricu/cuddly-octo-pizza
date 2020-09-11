@@ -44,5 +44,44 @@
             ]
     
         }
+    ],
+    "toppings":
+    [
+        {
+            "name" : "Tomato Souce",
+            "price" : 3,
+            "quantity" : 1,
+            "stock" : 1000
+        },
+        {
+            "name" : "Sliced Pepperoni",
+            "price" : 3,
+            "quantity" : 1,
+            "stock" : 1000
+        },
+        {
+            "name" : "Turkey Breast",
+            "price" : 5,
+            "quantity" : 1,
+            "stock" : 100
+        },
+        {
+            "name" : "Hard Salami",
+            "price" : 5,
+            "quantity" : 1,
+            "stock" : 100
+        },
+        {
+            "name" : "Mushrooms",
+            "price" : 4,
+            "quantity" : 1,
+            "stock" : 100
+        },
+        {
+            "name" : "Green Olives",
+            "price" : 2,
+            "quantity" : 1,
+            "stock" : 100
+        }
     ]
 }
