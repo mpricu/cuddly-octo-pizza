@@ -6,14 +6,16 @@
     <div v-if="!showMenu" class="container">
       <Home @goToMenuAction="goToMenu" />
     </div>
-    <div v-else class="container">
-      <Menu class="item" />
-      <ShoppingBasket class="item" />
-      <Recipe />
-    </div>
-    <div class="container">
-      <Menu class="item" />
-      <ShoppingBasket class="item" />
+    <div v-else>
+      <div class="container">
+        <Menu class="item" />
+        <ShoppingBasket class="item" />
+        <Recipe />
+      </div>
+      <div class="container">
+        <Menu class="item" />
+        <ShoppingBasket class="item" />
+      </div>
     </div>
   </div>
 </template>
