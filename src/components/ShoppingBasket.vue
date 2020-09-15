@@ -1,45 +1,49 @@
 <template>
-        <div class="">
-            <div v-if="basket.length > 0">
-                <table class="">
-                    <thead class="">
-                        <tr>
-                            <th>Quantity</th>
-                            <th>Item</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="item in basket" :key="item['.key']">
-                        <tr>
-                            <td>
-                                <button class="" 
-                                        type="button"
-                                        @click="decreaseQuantity(item)">-</button>
-                                <span>{{ item.quantity }}</span>
-                                <button class="" 
-                                        type="button"
-                                        @click="increaseQuantity(item)">+</button>
-                            </td>
-                            <td>{{item.name}} {{item.size}}</td>
-                            <td>{{ item.price * item.quantity | currency }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>Order total: {{ total | currency }}</p>
-                <button class="" @click="addNewOrder">Place Order</button>
+           <div class="table-container">
+            <div  v-if="basket.length > 0">
+                 <div class="title">
+                    Shopping Bag
+                 </div>
+                <div class="table">
+                    <div class="row">Quantity</div>
+                    <div class="row">Item</div>
+                    <div class="row">Total</div>
+                </div>
+                <div class="table" v-for="item in basket" :key="item['.key']"> 
+                    <div class="row">
+                        <!-- &nbsp; -->
+                        <button  type="button" class="button"
+                            @click="decreaseQuantity(item)">-</button>
+                        <span>{{ item.quantity }}</span>
+                        <button type="button" class="button"
+                            @click="increaseQuantity(item)">+</button>
+                    </div>
+                    <div class="row">
+                        {{item.name}} {{item.size}}
+                    </div>
+                    <div class="row">
+                        {{ item.price * item.quantity | currency }}
+                    </div>
+                </div>
+                <div class="table">
+                     <p>Order total: {{ total | currency }}</p>
+                </div>
+                <div ></div>                
+                     <button class="orderButton" @click="addNewOrder">Place Order</button>
             </div>
-            <div v-else>
+             <div class="title" v-else>
                 <p>{{ basketText }}</p> 
-            </div>  
+            </div>             
         </div>
 </template>
 
 <script>
-export default {
+export default {   
     data(){
         return {
             basketText : 'Your basket is empty!',
-            basket: []
+            basket: [],
+            placedOrder:{}
         }
     },
      computed: {
@@ -98,3 +102,56 @@ export default {
     
 }
 </script>
+
+<style scoped>
+.table-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  /* transition: 0.3s; */
+  width: 90%;
+  border-radius: 5px;
+  padding: 1em; 
+  width: 90%;
+  /*/* border: 1px solid silver; 
+  -ms-box-orient: horizontal;  */ 
+}
+.table {
+  display: flex;
+  flex-flow: row wrap;   /* flex-direction and flex-wrap */
+}
+ .row {
+  width: calc(100% / 6);
+  text-align: center;
+  padding: 1%;
+ }
+ .warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.title {
+  border-bottom: 1px solid #E1E8EE;
+  padding: 3%;
+  margin: 2%;
+  color: #5E6977;
+  font-size: 18px;
+  font-weight: 400;
+}
+.button {
+	cursor: pointer;
+	border: solid 1px solid green;
+	width: 26px;
+	text-align: center;
+	color:green;
+    margin: 2px;
+    display: inline-block;
+}
+.orderButton {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding:  10px 24px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  /* font-size: 16px; */
+}
+</style>
