@@ -13,17 +13,38 @@
         </li>
       </ul>
     </nav>
-    <div class="actions">
-      <a class="signIn-link">{{userName}}</a>
+    <div class="actions" v-bind:title="title">
+      <!-- <a class="signIn-link" v-if="!isLoggedIn">Log in</a> 
+      <a class="signIn-link" v-if="isLoggedIn">Log out {{userName}}</a>-->
+
+      <!-- <a class="signIn-link" v-if="!isLoggedIn">Log in</a> 
+      <a class="signIn-link" v-else>Log out {{userName}}</a>-->
+
+      <!-- <a class="signIn-link" v-if="isLoggedIn && numberOfOrders > 10">Log out Master {{userName}}</a>
+      <a class="signIn-link" v-else-if="isLoggedIn && numberOfOrders <= 10">Log out {{userName}}</a>      
+      <a class="signIn-link" v-else>Log in</a>-->
+
+      <a class="signIn-link" v-show="!isLoggedIn">Log in</a>
+      <a class="signIn-link" v-show="isLoggedIn">Log out {{userName}}</a>
     </div>
   </header>
 </template>
 
 <script>
 export default {
+  props: {
+    userName: {
+      type: String,
+      required: true,
+      default: "Anonymous",
+      /* este recomandat la declararea props sa folosim built-in prots validations,  */
+    },
+  },
   data() {
     return {
-      userName: "Anonymous",
+      title: "User's actions",
+      isLoggedIn: true,
+      numberOfOrders: 10,
     };
   },
 };
@@ -80,6 +101,7 @@ header > nav > .actions {
   margin-left: auto;
   display: flex;
   align-items: center;
+  /*default alignment for items inside the flexible container.*/
   margin-right: 10px;
 }
 

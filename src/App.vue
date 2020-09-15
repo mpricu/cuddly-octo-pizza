@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="header">
-      <Header />
+      <Header :userName="userName" />
     </div>
     <div v-if="!showMenu" class="container">
       <Home @goToMenuAction="goToMenu" />
@@ -11,6 +11,10 @@
       <ShoppingBasket class="item" />
       <Recipe />
     </div>
+    <div class="container">
+      <Menu class="item" />
+      <ShoppingBasket class="item" />
+    </div>
   </div>
 </template>
 
@@ -19,7 +23,6 @@ import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./components/Home";
 import ShoppingBasket from "./components/ShoppingBasket";
-import Recipe from "./components/Recipe";
 
 export default {
   name: "App",
@@ -28,11 +31,11 @@ export default {
     Home,
     Menu,
     ShoppingBasket,
-    Recipe,
   },
   data() {
     return {
       showMenu: false,
+      userName: "Arabela",
     };
   },
   methods: {
@@ -58,10 +61,9 @@ html {
 }
 
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
-  font-family: arial, helvetica, sans-serif;
+  /* font-family: arial, helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   color: #2c3e50;
 
