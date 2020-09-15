@@ -1,47 +1,80 @@
 <template>
-   <header class="site-header">  
+  <header>
     <nav class="site-nav">
+      <div class="logo">
+        <a href="/" class="item">Cuddly Octo Pizza Store</a>
+      </div>
       <ul>
-      <a href="/" class="item">Cuddly Octo Pizza Store</a>
-      <a class="item"> Home</a>
-      <a class="item"> Menu</a>
+        <li>
+          <a class="item">Home</a>
+        </li>
+        <li>
+          <a class="item">Menu</a>
+        </li>
       </ul>
-    </nav>  
-    <div class="actions">    
-      <a  class="signIn-link">{{userName}}</a>
+    </nav>
+    <div class="actions">
+      <a class="signIn-link">{{userName}}</a>
     </div>
-</header>    
+  </header>
 </template>
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      userName: 'Anonymous'
-    }
-  }
-}
+      userName: "Anonymous",
+    };
+  },
+};
 </script>
 
 <style scoped>
-
-  a {
-    text-decoration: none;
-    cursor: pointer;
-  }
- .site-header {
-  background: none;
-  background: #ECEEEF;
-  display: flex;
-  font-size: 1em;
-  padding: 40px 0; 
-
-  align-items: center;
+a {
+  text-decoration: none;
+  cursor: pointer;
 }
-.site-nav {  
-    display: flex;
-    margin: 0;
-    padding: 0; 
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0px 1px 10px 3px rgb(156, 156, 156);
+}
+
+header > nav {
+  display: flex;
+  flex-direction: row;
+}
+
+header > nav > .logo {
+  font-size: 1.4rem;
+  place-self: center;
+  padding: 10px 20px;
+}
+
+header > nav > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  list-style: none;
+}
+
+header > nav > ul > li:not(:first-of-type)::before {
+  content: "|";
+  opacity: 0.4;
+  padding-right: 10px;
+}
+
+header > nav > .actions {
+}
+
+.site-nav {
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 .actions {
   margin-left: auto;
@@ -51,22 +84,10 @@ export default {
 }
 
 .signIn-link {
-  color: #62DEBE;
+  color: #bb4a4a;
   font-size: 0.8rem;
-  margin-left: 10px;
   text-transform: uppercase;
-}
 
-
-  /*
-a {
-  text-decoration: none;
-  cursor: pointer;
+  padding: 0 10px;
 }
- .header, .footer {
-        background: #ECEEEF;
-         padding: 40px 0; 
-        font-size: 1em;
-    } 
-    */
 </style>
