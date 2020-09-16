@@ -1,0 +1,45 @@
+
+.card-container {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  width: 90%;
+  border-radius: 5px;
+  padding: 1em;
+}
+.table {
+  display: flex;
+  flex-flow: row wrap; 
+}
+ .row {
+  width: calc(100% / 3);
+  text-align: center;
+  padding-top: 3%;
+ }
+  .veganFood {
+    margin: 1em;
+    padding: .5em;
+    border: 1px dotted green;    
+    color: green;
+}
+.leaf { 
+  width: 20px; height: 20px;
+  background-color: #A0DE21; 
+  border-radius: 20px 0px;
+}
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding:  3px 10px;
+    text-align: center;
+    text-decoration: none;
+	cursor: pointer;
+    font-size: 13px;
+    margin-right: 0.5em;
+    }
+   .review {
+    background: #eee;
+    opacity: 0.8;
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px 0; 
+    } 
