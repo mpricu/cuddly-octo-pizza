@@ -10,11 +10,6 @@
       <div class="container">
         <Menu class="item" />
         <ShoppingBasket class="item" />
-        <Recipe />
-      </div>
-      <div class="container">
-        <Menu class="item" />
-        <ShoppingBasket class="item" />
       </div>
     </div>
   </div>
@@ -25,7 +20,6 @@ import Header from "./components/Header";
 import Menu from "./components/Menu";
 import Home from "./components/Home";
 import ShoppingBasket from "./components/ShoppingBasket";
-
 export default {
   name: "App",
   components: {
@@ -57,33 +51,26 @@ html {
   height: 100vh;
   overflow: hidden;
 }
-
 * {
   font-family: "Nunito", sans-serif;
 }
-
 #app {
-  /* font-family: arial, helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   color: #2c3e50;
-
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-
 .header {
   flex: 0 0 60px;
 }
-
 .container {
   display: flex;
   flex: 1 1 100%;
   width: 100%;
   overflow-y: auto;
+  margin-top: 3%;
 }
 .item {
   font-weight: bold;
