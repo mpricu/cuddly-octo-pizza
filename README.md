@@ -9,3 +9,12 @@ Day 1
  - Conditional rendering
  - List Rendering
  - Lifecycle hooks
+
+Day 2
+- Style and Class binding
+- Event Handling
+- Component Communication
+- Computed Properties
+- Life cycle Hooks
+- v-model Directive
+- Filters
