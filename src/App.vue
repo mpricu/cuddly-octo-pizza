@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <div class="header">
-      <Header />
+      <Header :userName="userName" />
     </div>
-    <div class="container">
-      <Home />
+    <div class="container" v-if="!showMenu">
+      <Home @goToMenuPage="goToMenu" />
     </div>
-    <div class="container" style="display:none">
+    <div class="container" v-else>
       <Menu class="item" />
       <Cart class="item" />
     </div>
@@ -17,13 +17,26 @@
 import Home from './components/Home';
 import Header from './components/Header';
 import Menu from './components/Menu';
+import Cart from './components/ShoppingCart';
 
 export default {
   name: 'App',
   components: {
     Home,
     Header,
-    Menu
+    Menu,
+    Cart
+  },
+  data() {
+    return {
+      showMenu: false,
+      userName: 'Spartacus Demo'
+    };
+  },
+  methods: {
+    goToMenu() {
+      this.showMenu = !this.showMenu;
+    }
   }
 };
 </script>

@@ -14,24 +14,32 @@
       </ul>
     </nav>
     <div class="actions" v-bind:title="actionsToolTip">
-      <a href="" v-if="isLoggedIn && numberOfOrders > 10" class="signIn-link"
-        >Log out Super User</a
-      >
       <a
-        href=""
+        href
+        v-if="isLoggedIn && numberOfOrders > 10"
+        class="signIn-link"
+      >Log out Super User {{userName}}</a>
+      <a
+        href
         v-else-if="isLoggedIn && numberOfOrders <= 10"
         class="signIn-link"
-        >Log out</a
-      >
-      <a href="" v-else class="signIn-link">Log in</a>
+      >Log out {{userName}}</a>
+      <a href v-else class="signIn-link">Log in</a>
       <!-- <a href="" v-show="isLoggedIn"  class="signIn-link">Log out</a>
-        <a href="" v-show="!isLoggedIn" class="signIn-link">Log in</a> -->
+      <a href="" v-show="!isLoggedIn" class="signIn-link">Log in</a>-->
     </div>
   </header>
 </template>
 
 <script>
 export default {
+  props: {
+    userName: {
+      type: String,
+      required: true,
+      default: 'Anonymous'
+    }
+  },
   data() {
     return {
       actionsToolTip: "User's actions",
