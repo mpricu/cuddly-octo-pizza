@@ -14,7 +14,10 @@ Day 2
 - Style and Class binding
 - Event Handling
 - Component Communication
+   - Parent to child via Props
+   - Child to parent via events
+   - Communication via Service Bus
 - Computed Properties
-- Life cycle Hooks
+- Lifecycle Hooks
 - v-model Directive
 - Filters
