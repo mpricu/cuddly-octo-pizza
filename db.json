@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Hawaii Pizza",
-      "description": "Neapolitan is the original pizza. This delicious pie dates all the way back to 18th century in Naples, Italy. Variations: Pizza Margherita, Pizza Marinara",
+      "description": "The pizza that nobody really wants, but many order it... it has pineapple... f***ing pineapple... on a pizza... somebody snorted a lot of mozzarella to come up with this idea...",
       "vegan": false,
       "options": [
         {
@@ -47,6 +47,34 @@
           "price": 54
         }
       ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Giani",
+      "lastName": "Pizza-Lover",
+      "addresses": [
+        {
+          "id": 1,
+          "street": "qa",
+          "number": "1"
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "orderItems": [
+        {
+          "menuItemId": 1,
+          "option": {},
+          "extras": []
+        }
+      ],
+      "userId": 1,
+      "total": 29
     }
   ]
 }
