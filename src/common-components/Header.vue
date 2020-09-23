@@ -6,45 +6,64 @@
             </div>
             <ul>
                 <li>
-                    <a class="item">Home</a>
+                    <router-link exact to="/">Home</router-link>
                 </li>
                 <li>
-                    <a class="item">Menu</a>
+                    <router-link exact :to="{ path: '/pizza-menu' }"
+                        >Menu</router-link
+                    >
+                </li>
+                <li v-if="isLoggedIn">
+                    <router-link
+                        exact
+                        :to="{
+                            name: 'UserProfile',
+                            params: { id: localUser.id }
+                        }"
+                        >User Info</router-link
+                    >
                 </li>
             </ul>
         </nav>
         <div class="actions" v-bind:title="actionsToolTip">
-            <a href v-if="isLoggedIn && numberOfOrders > 10" class="signIn-link"
-                >Log out Super User {{ userName }}</a
+            <button v-if="isLoggedIn" class="signOut-link" @click="logOut">
+                Welcome {{ userName }}
+            </button>
+            <router-link v-else to="/authenticate" class="signIn-link"
+                >Login</router-link
             >
-            <a
-                href
-                v-else-if="isLoggedIn && numberOfOrders <= 10"
-                class="signIn-link"
-                >Log out {{ userName }}</a
-            >
-            <a href v-else class="signIn-link">Log in</a>
-            <!-- <a href="" v-show="isLoggedIn"  class="signIn-link">Log out</a>
-      <a href="" v-show="!isLoggedIn" class="signIn-link">Log in</a>-->
         </div>
     </header>
 </template>
 
 <script>
 export default {
-    props: {
-        userName: {
-            type: String,
-            required: true,
-            default: 'Anonymous'
-        }
-    },
+    props: ['user'],
     data() {
         return {
             actionsToolTip: "User's actions",
-            isLoggedIn: true,
-            numberOfOrders: 10
+            localUser: null
         };
+    },
+    computed: {
+        userName: function() {
+            return `${this.localUser.firstName} ${this.localUser.lastName}`;
+        },
+        isLoggedIn: function() {
+            return !!this.localUser;
+        }
+    },
+    watch: {
+        user: function(newVal) {
+            console.log(newVal);
+            this.localUser = newVal;
+        }
+    },
+    methods: {
+        logOut() {
+            localStorage.removeItem('user');
+            this.$root.$emit('userLoggedOut');
+        }
     }
 };
 </script>
@@ -96,5 +115,15 @@ header > nav > ul > li:not(:first-of-type)::before {
     font-size: 0.8rem;
     text-transform: uppercase;
     padding: 0 10px;
+}
+.router-link-active {
+    border-bottom: 2px solid tomato;
+}
+.signOut-link {
+    all: unset;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    padding: 0 10px;
+    color: #4a4abb;
 }
 </style>

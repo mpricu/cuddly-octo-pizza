@@ -1,47 +1,47 @@
 <template>
     <div id="app">
         <div class="header">
-            <Header :userName="userName" />
+            <Header :user="user" />
         </div>
-        <!-- <div class="container" v-if="!showMenu">
-      <Home @goToMenuPage="goToMenu" />
-    </div>
-    <div class="container" v-else>
-      <Menu class="item" />
-      <Cart class="item" />
-    </div> -->
-        <UserInfo :user-id="1" />
+        <div>
+            <h1>Main Router View</h1>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
-// import Home from './components/Home';
 import Header from './common-components/Header';
-// import Menu from './components/Menu';
-// import Cart from './components/ShoppingCart';
-
-import UserInfo from './features/user-account/pages/UserInfo';
 
 export default {
     name: 'App',
     components: {
-        // Home,
-        Header,
-        // Menu,
-        // Cart,
-        UserInfo
+        Header
     },
     data() {
         return {
-            showMenu: false,
-            userName: 'Spartacus Demo'
+            user: null
         };
     },
-    methods: {
-        goToMenu() {
-            this.showMenu = !this.showMenu;
+    created() {
+        this.$root.$on('userLoggedIn', () => {
+            this.user = JSON.parse(localStorage.getItem('user'));
+        });
+        this.$root.$on('userLoggedOut', () => {
+            this.user = null;
+        });
+
+        console.log('created');
+    },
+    mounted() {
+        console.log('mounted');
+        if (localStorage.getItem('user')) {
+            this.user = JSON.parse(localStorage.getItem('user'));
+        } else {
+            this.user = null;
         }
-    }
+    },
+    methods: {}
 };
 </script>
 

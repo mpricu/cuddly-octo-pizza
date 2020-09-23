@@ -1,5 +1,5 @@
 const placeOrder = async () => {};
 
 export default {
-  placeOrder,
+    placeOrder
 };

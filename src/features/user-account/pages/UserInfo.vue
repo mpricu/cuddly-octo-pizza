@@ -20,14 +20,15 @@ import UserService from '../services/user.service';
 
 export default {
     components: { PersonalInfo, UserAddress },
-    props: ['userId'],
     data() {
         return {
             user: {},
-            isError: false
+            isError: false,
+            userId: null
         };
     },
     async created() {
+        this.userId = this.$route.params.id;
         const response = await UserService.getUser(this.userId);
         if (response.isError) {
             this.isError = true;
