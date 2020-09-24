@@ -13,45 +13,61 @@
             </div>
             <!-- <div class="row" :style="{backgroundColor: styleObject.color}">Add to basket</div> -->
         </div>
-        <div v-for="item in menuItems" v-bind:key="item.id">
-            <!-- <div class="row" :class="{veganFood : item.vegan}"> -->
-            <div class="leaf" v-show="item.vegan"></div>
-            <div
-                class="row"
-                :class="item.vegan ? 'veganFood' : ''"
-                v-if="!isAdmin"
-            >
-                <strong>{{ item.name }}</strong>
-            </div>
-            <div v-else>
-                <strong>{{ item.name }}</strong>
-                <input
-                    type="text"
-                    v-model="item.name"
-                    @change="updatePizzaName(item)"
-                />
-            </div>
-            <div class="table" v-for="option in item.options" :key="option.id">
-                <div class="row">{{ option.size }}</div>
-                <div class="row">{{ option.price | currency }}</div>
-                <div class="row">
-                    <button
-                        class="button"
-                        type="button"
-                        @click="addToCart(item, option)"
-                    >
-                        +
-                    </button>
+        <div v-for="item in menuItems" :key="item.id">
+            <CardView>
+                <template #header
+                    ><div class="leaf" v-show="item.vegan"></div>
+                    {{ item.name }}</template
+                >
+                <div
+                    class="row"
+                    :class="item.vegan ? 'veganFood' : ''"
+                    v-if="isAdmin"
+                >
+                    <strong>{{ item.name }}</strong>
                 </div>
-            </div>
+                <div v-else>
+                    <strong>{{ item.name }}</strong>
+                    <input
+                        type="text"
+                        v-model.lazy="item.name"
+                        @blur="blurred"
+                        @change="updatePizzaName(item)"
+                    />
+                </div>
+                <template #actions="extraStuff">
+                    <div
+                        class="table"
+                        v-for="option in item.options"
+                        :key="option.id"
+                    >
+                        <div class="row">{{ option.size }}</div>
+                        <div class="row">{{ option.price | currency }}</div>
+                        <div class="row">
+                            <button
+                                class="button"
+                                type="button"
+                                @click="addToCart(item, option)"
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+                    <div>{{ extraStuff }}</div>
+                </template>
+            </CardView>
         </div>
     </div>
 </template>
 
 <script>
 import Services from '../services/pizza.service';
+import CardView from '../../../common-components/CardView';
 
 export default {
+    components: {
+        CardView
+    },
     data: () => ({
         menuItems: [],
         isAdmin: false,
@@ -76,8 +92,12 @@ export default {
             this.$root.$emit('itemAddedToCart', item, option);
         },
         updatePizzaName(item) {
+            console.log('Changed pizza name');
             Services.updatePizza(item);
             console.log(item.name);
+        },
+        blurred() {
+            console.log(`Blurry lines ${JSON.stringify(this.menuItems)}`);
         }
     }
 };
@@ -91,8 +111,7 @@ export default {
     padding: 1em;
 }
 .table {
-    display: flex;
-    flex-flow: row wrap;
+    display: inline-block;
 }
 .row {
     width: calc(100% / 3);

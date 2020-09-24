@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../features/store/pages/Home';
-import Menu from '../features/store/pages/Menu';
 import AuthenticateUser from '../features/user-account/pages/AuthenticateUser';
-import UserInfo from '../features/user-account/pages/UserInfo';
-import UserPage from '../features/user-account/pages/UserPage';
-import UserOrders from '../features/user-account/pages/UserOrders';
+import UserRouter from '../features/user-account/router';
 
 Vue.use(VueRouter);
 
@@ -18,7 +15,10 @@ const routes = [
     {
         path: '/pizza-menu',
         name: 'Menu',
-        component: Menu
+        component: () =>
+            import(
+                /* webpackChunkName: "menu" */ '../features/store/pages/Menu'
+            )
     },
     {
         path: '/authenticate',
@@ -27,27 +27,7 @@ const routes = [
     },
     {
         path: '/user/:id',
-        component: UserPage,
-        beforeEnter: (from, to, next) => {
-            if (localStorage.getItem('user')) {
-                next();
-            } else
-                next({
-                    name: 'Login'
-                });
-        },
-        children: [
-            {
-                path: 'profile',
-                name: 'UserProfile',
-                component: UserInfo
-            },
-            {
-                path: 'orders',
-                name: 'UserOrders',
-                component: UserOrders
-            }
-        ]
+        ...UserRouter
     },
     {
         path: '*',
