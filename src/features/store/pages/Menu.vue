@@ -11,7 +11,6 @@
             <div class="row" :style="[styleObject, styleObjectTwo]">
                 Add to basket
             </div>
-            <!-- <div class="row" :style="{backgroundColor: styleObject.color}">Add to basket</div> -->
         </div>
         <div v-for="item in menuItems" :key="item.id">
             <CardView>

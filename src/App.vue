@@ -7,16 +7,19 @@
             <h1>Main Router View</h1>
             <router-view></router-view>
         </div>
+        <SnackBar />
     </div>
 </template>
 
 <script>
 import Header from './common-components/Header';
+import SnackBar from './common-components/SnackBar';
 
 export default {
     name: 'App',
     components: {
-        Header
+        Header,
+        SnackBar
     },
     data() {
         return {
