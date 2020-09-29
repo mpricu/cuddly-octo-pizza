@@ -35,8 +35,8 @@ export default {
         'title   .       .       close'
         'body    body    body    body'
         'actions actions actions actions';
-    width: 400px;
-    height: 600px;
+    /* width: 400px;
+    height: 600px; */
     padding: 20px 10px;
     gap: 20px;
 
@@ -49,7 +49,12 @@ export default {
     .close {
         grid-area: close;
         font-size: 2rem;
-        color: tomato;
+        color: white;
+        background-color: lightseagreen;
+        border-radius: 10px;
+        width: 35px;
+        height: 35px;
+        border: 1px solid teal;
     }
 
     .body {
@@ -57,7 +62,9 @@ export default {
     }
 
     .actions {
-        border-top: 2px solid #bada55;
+        border-bottom: 2px dashed gray;
+        margin-bottom: 5px;
+        padding-bottom: 10px;
         grid-area: actions;
         > * {
             all: none;
