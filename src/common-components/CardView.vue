@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <!-- <div class="card">
         <div class="title">
             <slot name="header"> </slot>
         </div>
@@ -12,6 +12,26 @@
                 <button @click="close">Close</button>
             </slot>
         </div>
+    </div> -->
+    <div class="card">
+        <v-card elevation="8">
+            <v-checkbox
+                v-model="checkbox"
+                :label="`Checkbox 1: ${checkbox.toString()}`"
+            ></v-checkbox>
+            <v-card-title>
+                <slot name="header"></slot>
+            </v-card-title>
+            <v-card-text>
+                <slot></slot>
+            </v-card-text>
+            <v-divider> </v-divider>
+            <v-card-text>
+                <slot name="actions" :extras="extras">
+                    <button @click="close">Close</button>
+                </slot>
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -19,7 +39,8 @@
 export default {
     data: function() {
         return {
-            extras: { shit: false, rainbows: true }
+            extras: { shit: false, rainbows: true },
+            checkbox: true
         };
     },
     methods: {
@@ -30,6 +51,9 @@ export default {
 
 <style lang="scss" scoped>
 .card {
+    padding: 5rem;
+}
+.xcard {
     display: grid;
     grid-template-areas:
         'title   .       .       close'

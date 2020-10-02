@@ -12,50 +12,52 @@
                 Add to basket
             </div>
         </div>
-        <div v-for="item in menuItems" :key="item.id">
-            <CardView>
-                <template #header
-                    ><div class="leaf" v-show="item.vegan"></div>
-                    {{ item.name }}</template
-                >
-                <div
-                    class="row"
-                    :class="item.vegan ? 'veganFood' : ''"
-                    v-if="isAdmin"
-                >
-                    <strong>{{ item.name }}</strong>
-                </div>
-                <div v-else>
-                    <strong>{{ item.name }}</strong>
-                    <input
-                        type="text"
-                        v-model.lazy="item.name"
-                        @blur="blurred"
-                        @change="updatePizzaName(item)"
-                    />
-                </div>
-                <template #actions="extraStuff">
-                    <div
-                        class="table"
-                        v-for="option in item.options"
-                        :key="option.id"
+        <transition-group name="fade" tag="div">
+            <div v-for="item in menuItems" :key="item.id">
+                <CardView>
+                    <template #header
+                        ><div class="leaf" v-show="item.vegan"></div>
+                        {{ item.name }}</template
                     >
-                        <div class="row">{{ option.size }}</div>
-                        <div class="row">{{ option.price | currency }}</div>
-                        <div class="row">
-                            <button
-                                class="button"
-                                type="button"
-                                @click="addToCart(item, option)"
-                            >
-                                +
-                            </button>
-                        </div>
+                    <div
+                        class="row"
+                        :class="item.vegan ? 'veganFood' : ''"
+                        v-if="isAdmin"
+                    >
+                        <strong>{{ item.name }}</strong>
                     </div>
-                    <div>{{ extraStuff }}</div>
-                </template>
-            </CardView>
-        </div>
+                    <div v-else>
+                        <strong>{{ item.name }}</strong>
+                        <input
+                            type="text"
+                            v-model.lazy="item.name"
+                            @blur="blurred"
+                            @change="updatePizzaName(item)"
+                        />
+                    </div>
+                    <template #actions="extraStuff">
+                        <div
+                            class="table"
+                            v-for="option in item.options"
+                            :key="option.id"
+                        >
+                            <div class="row">{{ option.size }}</div>
+                            <div class="row">{{ option.price | currency }}</div>
+                            <div class="row">
+                                <button
+                                    class="button"
+                                    type="button"
+                                    @click="addToCart(item, option)"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <div>{{ extraStuff }}</div>
+                    </template>
+                </CardView>
+            </div>
+        </transition-group>
     </div>
 </template>
 
@@ -80,10 +82,14 @@ export default {
             fontSize: '20px'
         }
     }),
-    created() {
+    mounted() {
         fetch('http://localhost:3000/menuItems')
             .then(response => response.json())
-            .then(data => (this.menuItems = data));
+            .then(data =>
+                data.forEach((item, index) => {
+                    setTimeout(() => this.menuItems.push(item), 500 * index);
+                })
+            );
     },
     methods: {
         addToCart(item, option) {
@@ -103,6 +109,18 @@ export default {
 </script>
 
 <style scoped>
+.fade-enter-active {
+    transition: opacity 0.5s 1s;
+}
+
+.fade-enter-to {
+    opacity: 1;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+
 .card-container {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 90%;

@@ -5,7 +5,9 @@
         </div>
         <div>
             <h1>Main Router View</h1>
-            <router-view></router-view>
+            <transition name="drop" mode="out-in">
+                <router-view></router-view>
+            </transition>
         </div>
         <SnackBar />
     </div>
@@ -81,5 +83,32 @@ html {
 .item {
     font-weight: bold;
     text-align: center;
+}
+
+.drop-enter-active {
+    transition: opacity 1s ease-in;
+}
+
+.drop-enter-to,
+.drop-enter {
+}
+
+.drop-enter-to {
+    opacity: 1;
+}
+
+.drop-enter {
+    opacity: 0;
+}
+
+.drop-leave-active {
+    transition: opacity 1s ease-out;
+}
+
+.drop-leave {
+    opacity: 1;
+}
+.drop-leave-to {
+    opacity: 0;
 }
 </style>

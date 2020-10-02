@@ -13,15 +13,23 @@
                         >Menu</router-link
                     >
                 </li>
-                <li v-if="isLoggedIn">
-                    <router-link
-                        exact
-                        :to="{
-                            name: 'UserProfile',
-                            params: { id: localUser.id }
-                        }"
-                        >User Info</router-link
+                <li>
+                    <transition
+                        name="bounce"
+                        enter-active-class="bounceInDown"
+                        leave-active-class="bounceOutUp"
                     >
+                        <div v-if="isLoggedIn">
+                            <router-link
+                                exact
+                                :to="{
+                                    name: 'UserProfile',
+                                    params: { id: localUser.id }
+                                }"
+                                >User Info</router-link
+                            >
+                        </div>
+                    </transition>
                 </li>
             </ul>
         </nav>
@@ -68,7 +76,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '/node_modules/vue2-animate/src/sass/vue2-animate.scss';
+.twerk {
+    animation: bounce;
+    animation-duration: 10s;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;
