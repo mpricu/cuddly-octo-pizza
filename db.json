@@ -1,0 +1,81 @@
+{
+    "menuItems": [
+        {
+            "id": 1,
+            "name": "Hawaii Pizza",
+            "description": "The pizza that nobody really wants, but many order it... it has pineapple... f***ing pineapple... on a pizza... somebody snorted a lot of mozzarella to come up with this idea...",
+            "vegan": false,
+            "options": [
+                {
+                    "size": "20 cm",
+                    "price": 30
+                },
+                {
+                    "size": "40 cm",
+                    "price": 50
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Chicago Pizza",
+            "description": "Chicago pizza, also commonly referred to as deep-dish pizza, gets its name from the city it was invented in. During the early 1900’s, Italian immigrants in the windy city were searching for something similar to the Neapolitan pizza",
+            "vegan": false,
+            "options": [
+                {
+                    "size": "20 cm",
+                    "price": 29
+                },
+                {
+                    "size": "40 cm",
+                    "price": 48
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Greek Pizza",
+            "description": "Greek pizza was created by Greek immigrants who came to America and were introduced to Italian pizza",
+            "vegan": true,
+            "options": [
+                {
+                    "size": "20 cm",
+                    "price": 32
+                },
+                {
+                    "size": "40 cm",
+                    "price": 54
+                }
+            ]
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "userName": "gianni@pizza-love.me",
+            "firstName": "Giani",
+            "lastName": "Pizza-Lover",
+            "addresses": [
+                {
+                    "id": 1,
+                    "street": "qa",
+                    "number": "1"
+                }
+            ]
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "orderItems": [
+                {
+                    "menuItemId": 1,
+                    "option": {},
+                    "extras": []
+                }
+            ],
+            "userId": 1,
+            "total": 29
+        }
+    ]
+}
