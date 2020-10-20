@@ -1,14 +1,24 @@
 <template>
-    <div id="app">
-        <div class="header">
-            <Header :user="user" />
+    <v-app>
+        <div id="app">
+            <div class="header">
+                <Header :user="user" />
+            </div>
+            <div>
+                <h1>Main Router View</h1>
+                <router-view></router-view>
+            </div>
+            <SnackBar />
         </div>
-        <div>
-            <h1>Main Router View</h1>
-            <router-view></router-view>
-        </div>
-        <SnackBar />
-    </div>
+        <v-footer color="primary lighten-1" padless>
+            <v-layout justify-center wrap>
+                <v-flex primary lighten-2 py-4 text-center white--text xs12>
+                    {{ new Date().getFullYear() }} @
+                    <strong>Homework mpricu</strong>
+                </v-flex>
+            </v-layout>
+        </v-footer>
+    </v-app>
 </template>
 
 <script>

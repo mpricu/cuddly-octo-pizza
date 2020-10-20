@@ -38,7 +38,8 @@ export default {
     },
     methods: {
         goToMenu() {
-            this.$emit('goToMenuPage');
+            // this.$emit('goToMenuPage');
+            this.$router.push('pizza-menu');
         }
     }
 };

@@ -31,7 +31,7 @@ const mutations = {
             ...state.snackbar,
             message: payload.message,
             color: 'success',
-            timeout: 3000,
+            timeout: 1500,
             show: true
         };
     },

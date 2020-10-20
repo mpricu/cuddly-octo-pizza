@@ -1,39 +1,43 @@
 <template>
-    <div class="table-container">
+    <div id="app">
         <div v-if="cartItems.length > 0">
             <div class="title">Shopping Cart</div>
-            <div class="table">
-                <div class="row">Nr. crt</div>
-                <div class="row">Quantity</div>
-                <div class="row">Pizza Name</div>
-                <div class="row">Size</div>
-                <div class="row">Price</div>
-                <div class="row">Total</div>
-            </div>
-            <div class="table" v-for="(item, index) in cartItems" :key="index">
-                <div class="row">{{ index + 1 }}</div>
 
-                <div class="row">
-                    <button class="button" @click="decreaseQuantity(item)">
-                        -
-                    </button>
-                    <span>{{ item.quantity }}</span>
-                    <button class="button" @click="increaseQuantity(item)">
-                        +
-                    </button>
-                </div>
-                <div class="row">{{ item.name }}</div>
-                <div class="row">{{ item.size }}</div>
-                <div class="row">{{ item.price | currency }}</div>
-                <div class="row">
+            <v-data-table
+                :headers="headers"
+                :items="cartItems"
+                :items-per-page="5"
+                class="elevation-1"
+            >
+                <!-- <template #item.action="{}">
+                    <v-btn>+</v-btn>
+                </template> -->
+                <template v-slot:item.actions="{ item }">
+                    <v-icon class="mr-2" @click="decreaseNumber(item)">
+                        mdi-minus-circle
+                    </v-icon>
+                    <v-icon @click="increaseNumber(item)">
+                        mdi-plus-circle
+                    </v-icon>
+                </template>
+                <template #item.price="{item}">
+                    {{ item.price | currency }}
+                </template>
+                <template #item.cost="{item}">
                     {{ (item.quantity * item.price) | currency }}
+                </template>
+            </v-data-table>
+
+            <div>
+                <div class="order pink--text">
+                    <p>Order total: {{ total | currency }}</p>
                 </div>
-            </div>
-            <div class="class">
-                <p>Order total: {{ total | currency }}</p>
-            </div>
-            <div class="orderButton">
-                <button class="button" @click="placeOrder">Place Order</button>
+
+                <div>
+                    <v-btn color="primary" @click="placeOrder"
+                        >Place Order</v-btn
+                    >
+                </div>
             </div>
         </div>
         <div class="title" v-else>
@@ -43,13 +47,50 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     data() {
         return {
-            cartEmptyText: 'Your shopping cart is empty!'
-            // cartItems: []
+            cartEmptyText: 'Your shopping cart is empty!',
+            headers: [
+                {
+                    text: 'Pizza Name',
+                    value: 'name',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                },
+                {
+                    text: 'Size',
+                    value: 'size',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                },
+                {
+                    text: 'Quantity',
+                    value: 'quantity',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                },
+                {
+                    text: 'Modify quantity',
+                    value: 'actions',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                },
+                {
+                    text: 'Price',
+                    value: 'price',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                },
+                {
+                    text: 'Total',
+                    value: 'cost',
+                    align: 'center',
+                    class: 'primary--text subtitle-1'
+                }
+            ]
         };
     },
     computed: {
@@ -61,51 +102,35 @@ export default {
             }
             return totalCost;
         },
-        ...mapState('menuModule', ['cartItems']),
-        ...mapGetters('menuModule', ['getAllCartItems'])
+        ...mapState('menuModule', ['cartItems'])
     },
     methods: {
+        ...mapActions('menuModule', ['increaseQuantity', 'decreaseQuantity']),
+
         placeOrder() {
             this.cartItems = [];
             this.cartEmptyText = 'Thank you for your order!';
         },
-
-        increaseQuantity(item) {
-            item.quantity++;
+        increaseNumber(item) {
+            this.increaseQuantity(item);
         },
-        decreaseQuantity(item) {
-            item.quantity--;
-            if (item.quantity == 0) {
-                this.cartItems.splice(this.cartItems.indexOf(item), 1);
-            }
+
+        decreaseNumber(item) {
+            this.decreaseQuantity({ item });
         }
-    },
-    mounted: function() {
-        // this.$root.$on('itemAddedToCart', (item, option) => {
-        //     console.log('itemAddedToCart event listen');
-        //     console.log(item.name);
-        //     this.cartItems.push({
-        //         name: item.name,
-        //         size: option.size,
-        //         price: option.price,
-        //         quantity: 1
-        //     });
-        //     console.log('cartItems', this.cartItems);
-        // [
-        //   ...this.cartItems,
-        //   {
-        //     name: item.name,
-        //     size: option.size,
-        //     price: option.price,
-        //     quantity: 1
-        //   }
-        // ];
-        // });
     }
 };
 </script>
 
-<style scoped>
+<style>
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td {
+    /* font-weight: bold !important; */
+    font-size: 16px !important;
+}
+.v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+    font-size: 18px !important;
+}
+
 .table-container {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     width: 90%;
@@ -117,6 +142,7 @@ export default {
     display: flex;
     flex-flow: row wrap;
 }
+
 .row {
     width: calc(100% / 6);
     text-align: center;
@@ -128,8 +154,8 @@ export default {
 }
 .title {
     border-bottom: 1px solid #e1e8ee;
-    padding: 3%;
-    margin: 2%;
+    padding: 1%;
+    /* margin: 2%; */
     color: #5e6977;
     font-size: 18px;
     font-weight: 400;
@@ -139,16 +165,14 @@ export default {
     border: solid 1px solid green;
     width: 26px;
     text-align: center;
-    color: green;
+    color: white;
     margin: 2px;
     display: inline-block;
 }
-.orderButton {
-    background-color: #4caf50;
-    border: none;
-    color: white;
-    padding: 10px 24px;
-    text-align: center;
-    text-decoration: none;
+
+.order {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
 }
 </style>
