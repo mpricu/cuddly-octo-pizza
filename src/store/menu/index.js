@@ -2,6 +2,12 @@ const state = {
     cartItems: []
 };
 
+const getDefaultState = () => {
+    return {
+        cartItems: []
+    };
+};
+
 const actions = {
     addToOrder({ commit, dispatch }, payload) {
         let cartItem = {
@@ -86,6 +92,17 @@ const actions = {
             },
             { root: true }
         );
+    },
+    resetCartState({ commit, dispatch }) {
+        commit('resetCart');
+
+        dispatch(
+            'snackbarModule/showSuccess',
+            {
+                message: 'Cart deleted from order'
+            },
+            { root: true }
+        );
     }
 };
 const mutations = {
@@ -139,6 +156,9 @@ const mutations = {
         );
 
         state.cartItems = remainingPizzas;
+    },
+    resetCart(state) {
+        Object.assign(state, getDefaultState());
     }
 };
 const getters = {

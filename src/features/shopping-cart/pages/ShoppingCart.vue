@@ -4,27 +4,61 @@
             <div class="title">Shopping Cart</div>
 
             <v-data-table
+                style="position: relative;"
                 :headers="headers"
                 :items="cartItems"
                 :items-per-page="5"
                 class="elevation-1"
             >
-                <!-- <template #item.action="{}">
-                    <v-btn>+</v-btn>
-                </template> -->
                 <template v-slot:item.actions="{ item }">
-                    <v-icon class="mr-2" @click="decreaseNumber(item)">
+                    <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="deep-orange darken-2"
+                        @click="decreaseNumber(item)"
+                    >
+                        <v-icon dark>
+                            mdi-minus
+                        </v-icon>
+                    </v-btn>
+                    <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="green"
+                        @click="increaseNumber(item)"
+                    >
+                        <v-icon dark>
+                            mdi-plus
+                        </v-icon>
+                    </v-btn>
+                    <!-- <v-icon style="color:red;" @click="decreaseNumber(item)">
                         mdi-minus-circle
                     </v-icon>
-                    <v-icon @click="increaseNumber(item)">
+                    <v-icon style="color:green;" @click="increaseNumber(item)">
                         mdi-plus-circle
-                    </v-icon>
+                    </v-icon> -->
                 </template>
                 <template #item.price="{item}">
                     {{ item.price | currency }}
                 </template>
                 <template #item.cost="{item}">
                     {{ (item.quantity * item.price) | currency }}
+                </template>
+                <template slot="footer">
+                    <v-btn
+                        color="red darken-1"
+                        style="position: absolute; left: 10px; bottom: 10px; color:white"
+                        @click="deleteCart()"
+                    >
+                        <v-icon left>
+                            mdi-delete
+                        </v-icon>
+                        Clear cart
+                    </v-btn>
                 </template>
             </v-data-table>
 
@@ -53,6 +87,8 @@ export default {
     data() {
         return {
             cartEmptyText: 'Your shopping cart is empty!',
+            // pagination: {},
+            // selected: [],
             headers: [
                 {
                     text: 'Pizza Name',
@@ -102,10 +138,25 @@ export default {
             }
             return totalCost;
         },
-        ...mapState('menuModule', ['cartItems'])
+        ...mapState('menuModule', ['cartItems']),
+        pages() {
+            if (
+                this.pagination.rowsPerPage == null ||
+                this.pagination.totalItems == null
+            )
+                return 0;
+
+            return Math.ceil(
+                this.pagination.totalItems / this.pagination.rowsPerPage
+            );
+        }
     },
     methods: {
-        ...mapActions('menuModule', ['increaseQuantity', 'decreaseQuantity']),
+        ...mapActions('menuModule', [
+            'increaseQuantity',
+            'decreaseQuantity',
+            'resetCartState'
+        ]),
 
         placeOrder() {
             this.cartItems = [];
@@ -117,6 +168,9 @@ export default {
 
         decreaseNumber(item) {
             this.decreaseQuantity({ item });
+        },
+        deleteCart() {
+            this.resetCartState();
         }
     }
 };
